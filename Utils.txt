@@ -19,10 +19,19 @@ SearchForCheckout
     Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
     Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
     Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
-    Mouse Down    Xpath=/html/body/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[2]/div/input
-    Mouse Up    Xpath=/html/body/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[2]/div/input
-    Mouse Down    Xpath=/html/body/div[2]/div[1]/div[1]/ul/li[1]/span
-    Mouse Up    Xpath=/html/body/div[2]/div[1]/div[1]/ul/li[1]/span
+    Myclick    Xpath=/html/body/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[2]/div/input
+    Myclick    css=ul > li.el-select-dropdown__item:nth-child(1) > span
+    Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
+
+SearchForPress
+    [Arguments]    ${applicant}
+    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > div > span
+    Wait Until Page Contains Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
+    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
+    Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
+    Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
+    Myclick    Xpath=/html/body/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[2]/div/input
+    Myclick    css=ul > li.el-select-dropdown__item:nth-child(2) > span
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
 
 CreateTicket
@@ -52,15 +61,33 @@ LogError
     ${receiverM}    Get Text    ${location}
     log    ${receiverM}
 
+Myclick
+    [Arguments]    ${location}
+    Wait Until Element Is Visible    ${location}
+    Mouse over    ${location}
+    Mouse down    ${location}
+    Mouse up    ${location}
+
 Checkout
     [Arguments]    ${code}=123456
     Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
-    Mouse down    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
-    Mouse up    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
+    Myclick    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
     Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div > input    ${code}
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__footer > div > button.el-button.el-button--primary.el-button--mini
     sleep    2
     ${codeE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div.el-form-item__error
     ${success}=    Run Keyword And Return Status    Page Should Contain    操作成功
     Run Keyword If    ${codeE}    LogError    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div.el-form-item__error
+    Should Be True    ${success}
+
+Press
+    [Arguments]    ${amount}
+    Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
+    Myclick    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
+    Input Text    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[2]/div/div/div/input    ${amount}
+    Click Button    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[3]/div/button[2]
+    Wait Until Page Contains Element    Xpath=/html/body/div[3]/div/div[3]/button[2]
+    Click Button    Xpath=/html/body/div[3]/div/div[3]/button[2]
+    sleep    2
+    ${success}=    Run Keyword And Return Status    Page Should Contain    操作成功
     Should Be True    ${success}
