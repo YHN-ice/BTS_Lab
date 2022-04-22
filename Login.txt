@@ -1,8 +1,0 @@
-*** Settings ***
-Library           Selenium2Library
-Resource          Utils.txt
-
-*** Test Cases ***
-search
-    Login
-    CreateTicket    111111    11111    11111

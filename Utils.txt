@@ -12,17 +12,23 @@ Login
     ${Greeting}    Get Text    css=#welcome > div > div.fullName.leftclass
     should contain    ${Greeting}    欢迎
 
-Search
-    [Arguments]    ${applicant}    ${status}=待编压
-    Click Element    css=#el-menu-vertical-demo > li.bannerani.el-submenu.is-active > div > span
-    Click Element    css=#el-menu-vertical-demo > li.bannerani.el-submenu.is-active.is-opened > ul > div > li.el-menu-item.is-active > span
+SearchForCheckout
+    [Arguments]    ${applicant}
+    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > div > span
+    Wait Until Page Contains Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
+    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
+    Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
     Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
-    Unselect From List By Value    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(2) > div.el-select.el-select--mini > div > input    ${status}
+    Mouse Down    Xpath=/html/body/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[2]/div/input
+    Mouse Up    Xpath=/html/body/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[2]/div/input
+    Mouse Down    Xpath=/html/body/div[2]/div[1]/div[1]/ul/li[1]/span
+    Mouse Up    Xpath=/html/body/div[2]/div[1]/div[1]/ul/li[1]/span
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
 
 CreateTicket
-    [Arguments]    ${applicant}    ${receiver}    ${amount}    ${comment}="comment"
+    [Arguments]    ${applicant}    ${receiver}    ${amount}    ${comment}=comment
     Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > div > span
+    Wait Until Page Contains Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
     Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
     Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(2)
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(2)
@@ -35,5 +41,26 @@ CreateTicket
     ${applicantE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(1) > div > div > div.el-form-item__error
     ${receiverE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(2) > div > div > div.el-form-item__error
     ${amountE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(4) > div > div > div.el-form-item__error
-    ${success}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(4) > div > div > div.el-form-item__error
-    log    ${amountE}
+    ${success}=    Run Keyword And Return Status    Page Should Contain    新增成功
+    Run Keyword If    ${receiverE}    LogError    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(2) > div > div > div.el-form-item__error
+    Run Keyword If    ${applicantE}    LogError    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(1) > div > div > div.el-form-item__error
+    Run Keyword If    ${amountE}    LogError    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(4) > div > div > div.el-form-item__error
+    Should Be True    ${success}
+
+LogError
+    [Arguments]    ${location}
+    ${receiverM}    Get Text    ${location}
+    log    ${receiverM}
+
+Checkout
+    [Arguments]    ${code}=123456
+    Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
+    Mouse down    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
+    Mouse up    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
+    Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div > input    ${code}
+    Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__footer > div > button.el-button.el-button--primary.el-button--mini
+    sleep    2
+    ${codeE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div.el-form-item__error
+    ${success}=    Run Keyword And Return Status    Page Should Contain    操作成功
+    Run Keyword If    ${codeE}    LogError    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div.el-form-item__error
+    Should Be True    ${success}

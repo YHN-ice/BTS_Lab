@@ -1,0 +1,36 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          Utils.txt
+
+*** Test Cases ***
+Create1
+    Login
+    CreateTicket    6165038015564028310    6165046330038053642    叁万元    test1
+
+Create2
+    Login
+    CreateTicket    6165046330038053642    6165058854457948302    拾万元    test2，金额大写不正确
+
+Create3
+    Login
+    CreateTicket    6165058854457948302    6165058854457943659    柒万元    test3
+
+Create4
+    Login
+    CreateTicket    6165058854457943659    6165058854457948998    贰拾万元整    test4，收款账户不存在
+
+Create5
+    Login
+    CreateTicket    6165058854457948998    6165058854457943659    贰万元    test5，申请人账号不存在
+
+Create6
+    Login
+    CreateTicket    6165060155528279498    6165038015564028310    肆万元    test6，申请人账号不存在
+
+Create7
+    Login
+    CreateTicket    11650601555282354    6165038015564028310    肆万元    test7
+
+Create8
+    Login
+    CreateTicket    11650601555282354    11650588544579758    柒万元    test8
