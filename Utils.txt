@@ -1,0 +1,39 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Keywords ***
+Login
+    [Arguments]    ${user}=JT2204213235    ${password}=imbusadmin12345
+    Open Browser    http://10.176.122.171:8080/    gc    options=use_chromium=True
+    input text    css=#app > div > div.formbox > form > div:nth-child(1) > div > div > input    ${user}
+    input text    css=#app > div > div.formbox > form > div:nth-child(2) > div > div > input    ${password}
+    Click Button    css=#app > div > div.formbox > form > div.el-form-item.subbtn.el-form-item--feedback.el-form-item--mini > div > button
+    sleep    2
+    ${Greeting}    Get Text    css=#welcome > div > div.fullName.leftclass
+    should contain    ${Greeting}    欢迎
+
+Search
+    [Arguments]    ${applicant}    ${status}=待编压
+    Click Element    css=#el-menu-vertical-demo > li.bannerani.el-submenu.is-active > div > span
+    Click Element    css=#el-menu-vertical-demo > li.bannerani.el-submenu.is-active.is-opened > ul > div > li.el-menu-item.is-active > span
+    Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
+    Unselect From List By Value    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(2) > div.el-select.el-select--mini > div > input    ${status}
+    Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
+
+CreateTicket
+    [Arguments]    ${applicant}    ${receiver}    ${amount}    ${comment}="comment"
+    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > div > span
+    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
+    Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(2)
+    Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(2)
+    input text    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(1) > div > div > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
+    input text    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(2) > div > div > div > input    ${receiver}
+    input text    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(4) > div > div > div > input    ${amount}
+    input text    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div > textarea    ${comment}
+    click button    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__footer > div > button.el-button.el-button--primary.el-button--mini
+    sleep    2
+    ${applicantE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(1) > div > div > div.el-form-item__error
+    ${receiverE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(2) > div > div > div.el-form-item__error
+    ${amountE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(4) > div > div > div.el-form-item__error
+    ${success}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(4) > div > div > div.el-form-item__error
+    log    ${amountE}
