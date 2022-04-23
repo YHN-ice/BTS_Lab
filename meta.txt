@@ -16,8 +16,6 @@
 
 6165058854457943659
 
-bug: 收款和申请人相同时/create8，新增大额支付提示收款账户与收款人名称不一致
+bug: 收款和申请人相同时/create7，新增大额支付提示收款账户与收款人名称不一致
 
-//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[2]/div[3]/table/tbody/tr[1]/td[9]/div/button[1]
-
-//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[2]/div/div/div/input
+bug: story3 自己给自己转账
