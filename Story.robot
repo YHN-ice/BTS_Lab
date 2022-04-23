@@ -71,17 +71,4 @@ Story5santofengLargePaying
     Run Keyword If    ${is}    LargeAmountPay    100000    testForLAP
 
 Story6santofengLargePayed
-    Login
-    ClickManageButton
-    CreateTicket    6165058854457948302    6165058854457943659    壹拾万元    story5
-    SearchForCheckout    6165058854457948302
-    ${is}=    Run Keyword And Return Status    Page Should Contain    待编押
-    Run Keyword If    ${is}    Checkout
-    SearchForPress    6165058854457948302
-    ${is}=    Run Keyword And Return Status    Page Should Contain    待压印
-    Run Keyword If    ${is}    Press    100000
-    SearchForPressed    6165058854457948302
-    ${is}=    Run Keyword And Return Status    Page Should Contain    已出票
-    Run Keyword If    ${is}    LargeAmountPay    100000    testForLAP
-    ClickLargePayButton
-    DoLAP
+    StoryLargeAmountPayed    100000    壹拾万元    6165058854457948302    6165058854457943659
