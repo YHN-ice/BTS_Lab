@@ -12,22 +12,22 @@ Login
     ${Greeting}    Get Text    css=#welcome > div > div.fullName.leftclass
     should contain    ${Greeting}    欢迎
 
+ClickManageButton
+    Myclick    css=#el-menu-vertical-demo > li:nth-child(4) > div > span
+    Wait Until Page Contains Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
+    Myclick    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
+
 SearchForCheckout
     [Arguments]    ${applicant}
-    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > div > span
-    Wait Until Page Contains Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
-    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
-    Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
-    Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
+    Wait Until Page Contains Element    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[1]/div[1]/div[2]/input
+    Wait Until Element Is Visible    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[1]/div[1]/div[2]/input
+    Input Text    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[1]/div[1]/div[2]/input    ${applicant}
     Myclick    Xpath=/html/body/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[2]/div/input
     Myclick    css=ul > li.el-select-dropdown__item:nth-child(1) > span
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
 
 SearchForPress
     [Arguments]    ${applicant}
-    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > div > span
-    Wait Until Page Contains Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
-    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
     Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
     Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
     Myclick    Xpath=/html/body/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[2]/div/input
@@ -36,9 +36,6 @@ SearchForPress
 
 CreateTicket
     [Arguments]    ${applicant}    ${receiver}    ${amount}    ${comment}=comment
-    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > div > span
-    Wait Until Page Contains Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
-    Click Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(1)
     Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(2)
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(2)
     input text    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(1) > div > div > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
@@ -46,7 +43,6 @@ CreateTicket
     input text    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(4) > div > div > div > input    ${amount}
     input text    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div > textarea    ${comment}
     click button    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__footer > div > button.el-button.el-button--primary.el-button--mini
-    sleep    2
     ${applicantE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(1) > div > div > div.el-form-item__error
     ${receiverE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(2) > div > div > div.el-form-item__error
     ${amountE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(4) > div > div > div.el-form-item__error
@@ -62,6 +58,10 @@ LogError
     log    ${receiverM}
 
 Myclick
+    [Arguments]    ${location}
+    Wait Until Keyword Succeeds    15 s    5 s    myclickraw    ${location}
+
+myclickraw
     [Arguments]    ${location}
     Wait Until Element Is Visible    ${location}
     Mouse over    ${location}
@@ -90,4 +90,29 @@ Press
     Click Button    Xpath=/html/body/div[3]/div/div[3]/button[2]
     sleep    2
     ${success}=    Run Keyword And Return Status    Page Should Contain    操作成功
+    Should Be True    ${success}
+
+SearchForPressed
+    [Arguments]    ${applicant}
+    Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
+    Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
+    Myclick    Xpath=/html/body/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/div[2]/div/input
+    Myclick    css=ul > li.el-select-dropdown__item:nth-child(3) > span
+    Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
+
+LargeAmountPay
+    [Arguments]    ${amount}    ${ticketName}=testLAP    ${comment}=comment
+    Wait Until Page Contains Element    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[2]/div[3]/table/tbody/tr[1]/td[9]/div/button[2]
+    Myclick    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[2]/div[3]/table/tbody/tr[1]/td[9]/div/button[2]
+    Input Text    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[6]/div/div/div[1]/input    ${ticketName}
+    Input Text    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[7]/div/div/div[1]/input    ${amount}
+    Input Text    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[8]/div/div/div[1]/input    ${comment}
+    Click Button    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[3]/div/button[2]
+    ${receiverE}=    Run Keyword And Return Status    Page Should Contain Element    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[3]/div/div/div[2]
+    ${ticketNameE}=    Run Keyword And Return Status    Page Should Contain Element    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[6]/div/div/div[2]
+    ${amountE}=    Run Keyword And Return Status    Page Should Contain Element    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[7]/div/div/div[2]
+    ${success}=    Run Keyword And Return Status    Page Should Contain    新增成功
+    Run Keyword If    ${receiverE}    LogError    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[3]/div/div/div[2]
+    Run Keyword If    ${ticketNameE}    LogError    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[6]/div/div/div[2]
+    Run Keyword If    ${amountE}    LogError    Xpath=//*[@id="app"]/div/div[2]/div/div[2]/div/div/div[4]/div/div/div[2]/form/div/div[7]/div/div/div[2]
     Should Be True    ${success}
