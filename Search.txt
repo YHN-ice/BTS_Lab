@@ -21,7 +21,4 @@ Search3
 Search4
     Login
     ClickManageButton
-    SearchOnlyByApplicant    6165038015564028319Search4
-    Login
-    ClickManageButton
     SearchOnlyByApplicant    6165038015564028319
