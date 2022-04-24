@@ -45,7 +45,7 @@ Story3sanselfpayLargePaying
 Story4sanselfpayLargePaying
     Login
     ClickManageButton
-    CreateTicket    11650601555282354    6165038015564028310    壹拾万元    story3
+    CreateTicket    11650601555282354    6165038015564028310    壹拾万元    story4
     SearchForCheckout    11650601555282354
     ${is}=    Run Keyword And Return Status    Page Should Contain    待编押
     Run Keyword If    ${is}    Checkout
@@ -59,7 +59,7 @@ Story4sanselfpayLargePaying
 Story5santofengLargePaying
     Login
     ClickManageButton
-    CreateTicket    6165058854457948302    6165058854457943659    壹拾万元    story3
+    CreateTicket    6165058854457948302    6165058854457943659    壹拾万元    story5
     SearchForCheckout    6165058854457948302
     ${is}=    Run Keyword And Return Status    Page Should Contain    待编押
     Run Keyword If    ${is}    Checkout
@@ -71,4 +71,12 @@ Story5santofengLargePaying
     Run Keyword If    ${is}    LargeAmountPay    100000    testForLAP
 
 Story6santofengLargePayed
-    StoryLargeAmountPayed    100000    壹拾万元    6165058854457948302    6165058854457943659
+    StoryLargeAmountPayed    100000    壹拾万元    6165058854457948302    6165058854457943659    story6
+
+Story7Search
+    Login
+    ClickManageButton
+    SearchOnlyByApplicant    6165038015564028310
+
+Story8sanselfpayLargePayed
+    StoryLargeAmountPayed    100000    壹拾万元    11650601555282354    6165038015564028310    story8

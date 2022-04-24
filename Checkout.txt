@@ -6,9 +6,9 @@ Resource          Utils.txt
 Checkout1
     Login
     ClickManageButton
-    SearchForCheckout    11650601555282354
+    SearchForCheckout    6165038015564028310
     ${is}=    Run Keyword And Return Status    Page Should Contain    待编押
-    Run Keyword If    ${is}    Checkout
+    Run Keyword If    ${is}    Checkout    123456
 
 Checkout2
     Login
@@ -16,7 +16,7 @@ Checkout2
     SearchForCheckout    6165038015564028310
     ${status}    get text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div > table > tbody > tr:nth-child(1) > td.el-table_1_column_6 > div > div
     ${is}=    Run Keyword And Return Status    Should contain    ${status}    待编押
-    Run Keyword If    ${is}    Checkout
+    Run Keyword If    ${is}    Checkout    123457
 
 Checkout3
     Login
@@ -24,4 +24,21 @@ Checkout3
     SearchForCheckout    6165038015564028310
     ${status}    get text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div > table > tbody > tr:nth-child(1) > td.el-table_1_column_6 > div > div
     ${is}=    Run Keyword And Return Status    Should contain    ${status}    待编押
-    Run Keyword If    ${is}    Checkout
+    Run Keyword If    ${is}    Checkout    1a3d4f
+
+Checkout4
+    Login
+    ClickManageButton
+    SearchForCheckout    6165038015564028310
+    ${status}    get text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div > table > tbody > tr:nth-child(1) > td.el-table_1_column_6 > div > div
+    ${is}=    Run Keyword And Return Status    Should contain    ${status}    待编押
+    Run Keyword If    ${is}    CheckoutNoPasswd
+
+Checkout5
+    Login
+    ClickManageButton
+    SearchForCheckout    11650601555282354
+    ${is}=    Run Keyword And Return Status    Page Should Contain    待编押
+    Run Keyword If    ${is}    Checkout    123456
+    ${is}=    Run Keyword And Return Status    Page Should Contain    待编押
+    Run Keyword If    ${is}    Checkout    123456

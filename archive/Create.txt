@@ -7,10 +7,6 @@ Create1
     Login
     ClickManageButton
     CreateTicket    6165038015564028310    6165046330038053642    叁万元    test1
-    CreateTicket    6165038015564028310    6165046330038053642    叁万元    test1
-    CreateTicket    6165038015564028310    6165046330038053642    叁万元    test1
-    CreateTicket    6165038015564028310    6165046330038053642    叁万元    test1
-    CreateTicket    6165038015564028310    6165046330038053642    叁万元    test1
 
 Create2
     Login
@@ -35,7 +31,7 @@ Create5
 Create6
     Login
     ClickManageButton
-    CreateTicket    7165060155528279498    6165038015564028310    肆万元    test6，账号格式不正确（存折/银行卡）
+    CreateTicket    6165060155528279498    6165038015564028310    肆万元    test6，申请人账号不存在
 
 Create7
     Login
@@ -46,3 +42,8 @@ Create8
     Login
     ClickManageButton
     CreateTicket    11650601555282354    11650601555282354    柒万元    test8
+
+Create9
+    Login
+    ClickManageButton
+    CreateTicket    11650601555282354    11650588544579758    柒万元    test9

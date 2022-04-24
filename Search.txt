@@ -1,0 +1,19 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          Utils.txt
+
+*** Test Cases ***
+Search1
+    Login
+    ClickManageButton
+    SearchOnlyByApplicant    11650601555282354
+
+Search2
+    Login
+    ClickManageButton
+    SearchOnlyByApplicant    6165038015564028310
+
+Search3
+    Login
+    ClickManageButton
+    SearchDefault

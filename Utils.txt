@@ -24,6 +24,17 @@ ClickLargePayButton
     Wait Until Page Contains Element    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(6)
     Myclick    css=#el-menu-vertical-demo > li:nth-child(4) > ul > div > li:nth-child(6)
 
+SearchOnlyByApplicant
+    [Arguments]    ${applicant}
+    Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
+    Wait Until Element Is Visible    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
+    Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
+    Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
+
+SearchDefault
+    [Arguments]    ${applicant}
+    Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
+
 SearchForCheckout
     [Arguments]    ${applicant}
     Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
@@ -86,6 +97,16 @@ Checkout
     Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
     Myclick    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
     Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div > input    ${code}
+    Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__footer > div > button.el-button.el-button--primary.el-button--mini
+    sleep    2
+    ${codeE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div.el-form-item__error
+    ${success}=    Run Keyword And Return Status    Page Should Contain    操作成功
+    Run Keyword If    ${codeE}    LogError    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div.el-form-item__error
+    Should Be True    ${success}
+
+CheckoutNoPasswd
+    Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
+    Myclick    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__footer > div > button.el-button.el-button--primary.el-button--mini
     sleep    2
     ${codeE}=    Run Keyword And Return Status    Page Should Contain Element    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__body > form > div > div:nth-child(7) > div > div > div.el-form-item__error
@@ -157,10 +178,10 @@ RejectLAP
     Should Be True    ${success}
 
 StoryLargeAmountPayed
-    [Arguments]    ${amount}=100000    ${amountString}=壹拾万元    ${applicant}=6165058854457948302    ${receiver}=6165058854457943659
+    [Arguments]    ${amount}=100000    ${amountString}=壹拾万元    ${applicant}=6165058854457948302    ${receiver}=6165058854457943659    ${comment}=story
     Login
     ClickManageButton
-    CreateTicket    ${applicant}    ${receiver}    ${amountString}    story5
+    CreateTicket    ${applicant}    ${receiver}    ${amountString}    ${comment}
     SearchForCheckout    ${applicant}
     ${is}=    Run Keyword And Return Status    Page Should Contain    待编押
     Run Keyword If    ${is}    Checkout
