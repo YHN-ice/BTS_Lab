@@ -30,9 +30,11 @@ SearchOnlyByApplicant
     Wait Until Element Is Visible    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
     Input Text    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input    ${applicant}
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
+    sleep    2
 
 SearchDefault
     Myclick    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
+    sleep    2
 
 SearchForCheckout
     [Arguments]    ${applicant}
@@ -42,6 +44,7 @@ SearchForCheckout
     Myclick    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(2) > div.el-select.el-select--mini > div > input
     Myclick    css=ul > li.el-select-dropdown__item:nth-child(1) > span
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
+    sleep    2
 
 SearchForPress
     [Arguments]    ${applicant}
@@ -51,6 +54,7 @@ SearchForPress
     Myclick    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(2) > div.el-select.el-select--mini > div > input
     Myclick    css=ul > li.el-select-dropdown__item:nth-child(2) > span
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
+    sleep    2
 
 CreateTicket
     [Arguments]    ${applicant}    ${receiver}    ${amount}    ${comment}=comment
@@ -125,6 +129,16 @@ Press
     ${success}=    Run Keyword And Return Status    Page Should Contain    操作成功
     Should Be True    ${success}
 
+PressWithNoAmount
+    Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
+    Myclick    css=#app > div > div.layleft > div > div.padd > div > div > div.el-table > div> table > tbody > tr > td.el-table_1_column_9 > div > button:nth-child(1)
+    Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div:nth-child(4) > div > div > div.el-dialog__footer > div > button.el-button.el-button--primary.el-button--mini
+    Wait Until Page Contains Element    css=body > div.el-message-box__wrapper > div > div.el-message-box__btns > button.el-button.el-button--default.el-button--small.el-button--primary
+    Click Button    css=body > div.el-message-box__wrapper > div > div.el-message-box__btns > button.el-button.el-button--default.el-button--small.el-button--primary
+    sleep    2
+    ${success}=    Run Keyword And Return Status    Page Should Contain    操作成功
+    Should Be True    ${success}
+
 SearchForPressed
     [Arguments]    ${applicant}
     Wait Until Page Contains Element    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(1) > div.el-input.el-input--mini.el-input--suffix > input
@@ -133,6 +147,7 @@ SearchForPressed
     Myclick    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(2) > div.el-select.el-select--mini > div > input
     Myclick    css=ul > li.el-select-dropdown__item:nth-child(3) > span
     Click Button    css=#app > div > div.layleft > div > div.padd > div > div > div.el-row > div:nth-child(3) > button:nth-child(1)
+    sleep    2
 
 LargeAmountPay
     [Arguments]    ${amount}    ${ticketName}=testLAP    ${comment}=comment

@@ -3,14 +3,20 @@ Library           Selenium2Library
 Resource          Utils.txt
 
 *** Test Cases ***
-
 Press1
     Login
     ClickManageButton
     SearchForPress    11650601555282354
     ${is}=    Run Keyword And Return Status    Page Should Contain    待压印
+    Run Keyword If    ${is}    Press    7
+
+Press5
+    Login
+    ClickManageButton
+    SearchForPress    11650601555282354
+    ${is}=    Run Keyword And Return Status    Page Should Contain    待压印
     Run Keyword If    ${is}    Press    70000
-    
+
 Press2
     Login
     ClickManageButton
@@ -25,3 +31,9 @@ Press3
     ${is}=    Run Keyword And Return Status    Page Should Contain    待压印
     Run Keyword If    ${is}    Press    10000000000000000
 
+Press4
+    Login
+    ClickManageButton
+    SearchForPress    11650601555282354
+    ${is}=    Run Keyword And Return Status    Page Should Contain    待压印
+    Run Keyword If    ${is}    PressWithNoAmount
